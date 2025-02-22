@@ -3,6 +3,8 @@ import '../services/auth_service.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -20,39 +22,70 @@ class _LoginPageState extends State<LoginPage> {
     if (isSuccess) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(_emailController.text)),
+        MaterialPageRoute(builder: (context) => HomePage(_emailController.text)),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Login failed"),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login failed")),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: "Email"),
+      backgroundColor: Colors.blueGrey[50],
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: Padding(
+              padding: EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Welcome Back!",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      prefixIcon: Icon(Icons.email),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.lock),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    obscureText: true,
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _login,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+                    ),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: "Password"),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text("Login"),
-            ),
-          ],
+          ),
         ),
       ),
     );

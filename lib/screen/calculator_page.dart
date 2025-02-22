@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layouting/services/calculator.dart';
 
 class CalculatorPage extends StatefulWidget {
+  const CalculatorPage({super.key});
+
   @override
-  _CalculatorPageState createState() => _CalculatorPageState();
+  CalculatorPageState createState() => CalculatorPageState();
 }
 
-class _CalculatorPageState extends State<CalculatorPage> {
+class CalculatorPageState extends State<CalculatorPage> {
   final TextEditingController num1 = TextEditingController();
   final TextEditingController num2 = TextEditingController();
   String result = "";
@@ -28,45 +30,80 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Calculator")),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: num1,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Masukkan angka pertama"),
+      backgroundColor: Colors.blueGrey[50],
+      appBar: AppBar(
+        title: Text("Calculator"),
+        backgroundColor: Colors.blue,
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: Padding(
+              padding: EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: num1,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Masukkan angka pertama",
+                      prefixIcon: Icon(Icons.confirmation_number),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    controller: num2,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: "Masukkan angka kedua",
+                      prefixIcon: Icon(Icons.confirmation_number),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _calculate("tambah"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                        ),
+                        child: Text(
+                          "Tambah (+)",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _calculate("kurang"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                        ),
+                        child: Text(
+                          "Kurang (-)",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    result,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                  ),
+                ],
+              ),
             ),
-            
-            TextField(
-              controller: num2,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Masukkan angka kedua"),
-            ),
-            
-            SizedBox(height: 20),
-            
-            ElevatedButton(
-              onPressed: () => _calculate("tambah"),
-              child: Text("Tambah (+)"),
-            ),
-            
-            SizedBox(height: 10),
-            
-            ElevatedButton(
-              onPressed: () => _calculate("kurang"),
-              child: Text("Kurang (-)"),
-            ),
-            
-            SizedBox(height: 20),
-            
-            Text(
-              result,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
-            ),
-          ],
+          ),
         ),
       ),
     );
