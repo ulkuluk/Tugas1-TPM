@@ -15,16 +15,22 @@ class CalculatorPageState extends State<CalculatorPage> {
   final Calculator _calculator = Calculator();
 
   void _calculate(String operation) {
-    double x = double.tryParse(num1.text) ?? 0;
-    double y = double.tryParse(num2.text) ?? 0;
+    try {
+      double x = double.parse(num1.text);
+      double y = double.parse(num2.text);
 
-    setState(() {
-      if (operation == "tambah") {
-        result = "Hasil : ${_calculator.tambah(x, y)}";
-      } else {
-        result = "Hasil : ${_calculator.kurang(x, y)}";
-      }
-    });
+      setState(() {
+        if (operation == "tambah") {
+          result = "Hasil : ${_calculator.tambah(x, y)}";
+        } else {
+          result = "Hasil : ${_calculator.kurang(x, y)}";
+        }
+      });
+    } catch (e) {
+      setState(() {
+        result = "Input tidak valid! Masukkan hanya bilangan riil atau desimal.";
+      });
+    }
   }
 
   @override

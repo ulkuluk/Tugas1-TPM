@@ -15,12 +15,20 @@ class PenghitungDigitPageState extends State<HitungDigitPage> {
   String resultDesimal = "";
 
   void hitung() {
-    double x = double.tryParse(num1.text) ?? 0;
+    try {
+      double x = double.parse(num1.text);
 
-    setState(() {
-      resultAngka = "Banyak Angka : ${hitungAngka.hitungDigit(x)}";
-      resultDesimal = "Banyak Angka Dibelakang Koma(,) : ${hitungAngka.hitungDigitDesimal(x)}";
-    });
+      setState(() {
+        resultAngka = "Banyak Angka : ${hitungAngka.hitungDigit(x)}";
+        resultDesimal = "Banyak Angka Dibelakang Koma(.) : ${hitungAngka.hitungDigitDesimal(x)}";
+      });
+    } catch (e) {
+      setState(() {
+        resultAngka = "Input tidak valid! Masukkan hanya bilangan riil atau desimal.";
+        resultDesimal = "";
+      });
+      
+    }
   }
 
   @override
