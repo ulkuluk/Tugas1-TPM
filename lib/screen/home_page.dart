@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layouting/screen/calculator_page.dart';
+import 'package:flutter_layouting/screen/login_page.dart';
 import 'package:flutter_layouting/screen/penghitungDigit_page.dart';
 import 'package:flutter_layouting/screen/inputBilangan.dart';
 
@@ -44,6 +45,8 @@ class HomePage extends StatelessWidget {
                       context, "Menghitung Banyak Angka", HitungDigitPage()),
                   const SizedBox(height: 15),
                   _buildButton(context, "Cek Bilangan", InputBilangan()),
+                  const SizedBox(height: 15),
+                  _buildButton(context, "LogOut", LoginPage()),
                 ],
               ),
             ),
